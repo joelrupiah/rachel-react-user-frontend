@@ -4,7 +4,7 @@ import './footer.scss'
 const Footer = () => {
     return (
         <div>
-            Footer
+            Footer Router
         </div>
     )
 }

@@ -1,0 +1,66 @@
+.homeContainer{
+  // position: relative;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  color: white;
+
+  .name{
+    text-transform: uppercase;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  img{
+    min-width: 100%;
+    max-height: 600px;
+  }
+
+  .homeAbout{
+    display: flex;
+    justify-content: space-around;
+
+    .cardIcon{
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      justify-content: center;
+      color: purple;
+      font-size: 100px;
+      margin-right: -250px;
+    }
+
+    .cardDetails{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-content: center;
+
+      .heading{
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: -1px;
+      }
+
+      .description{
+        font-size: 12px;
+        font-weight: bold;
+        margin-top: -1px;
+      }
+
+    }
+
+  }
+
+  .aboutContactDivider{
+    position: relative;
+    // top: 20px;
+        border: none;
+        height: 2px;
+        background: lightgray;
+        margin-bottom: 50px;
+  }
+
+}
