@@ -1,9 +1,54 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../../../src/components/navbar/NavBar'
 import Footer from '../../../src/components/footer/Footer'
+import Axios from 'axios'
 
 const Home = () => {
+
+  const [stacks, setStacks] = useState([])
+  const [profiles, setProfiles] = useState([])
+  const [projects, setProjects] = useState([])
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [subject, setSubject] = useState('')
+  const [message, setMessage] = useState('')
+
+  const sendMessage = async(e) => {
+
+    e.preventDefault()
+
+    Axios.post("/messages/send-message", {name, email, subject, message})
+
+  }
+
+  const getAllStacks = () => {
+    Axios.get("/stacks/get-stacks")
+      .then(res => {
+        setStacks(res.data.data.getStacks)
+      })
+  }
+  const getAllProfiles = () => {
+    Axios.get("/profiles/get-profiles")
+      .then(res => {
+        setProfiles(res.data.data.getProfiles)
+      })
+  }
+  const getAllProjects = () => {
+    Axios.get("/projects/get-projects")
+      .then(res => {
+        setProjects(res.data.data.getProjects)
+      })
+  }
+
+  // const get
+
+  useEffect(() => {
+    getAllProfiles()
+    getAllProjects()
+    getAllStacks()
+  }, [])
+
     return (
       <>
         <Navbar />
@@ -18,9 +63,6 @@ const Home = () => {
           <div className="nk-header-table">
               <div className="nk-header-table-cell">
                   <div className="container">
-
-                      <h2 className="nk-subtitle text-white">Some Text</h2>
-
 
                       <h1 className="nk-title display-3 text-white">Rachel Namiba
                           <br />
@@ -78,50 +120,22 @@ const Home = () => {
           <div className="nk-gap-5 mnt-6"></div>
           <div className="container">
               <div className="row vertical-gap">
-                  <div className="col-md-6 col-lg-3">
+
+                  { stacks.map((stack, index) => (
+                    <div className="col-md-6 col-lg-3">
                       <div className="nk-ibox-1">
                           <div className="nk-ibox-icon">
                               <span className="pe-7s-portfolio"></span>
                           </div>
                           <div className="nk-ibox-cont">
-                              <div className="nk-ibox-title">Java Spark</div>
-                              <div className="nk-ibox-text">Projects Completed</div>
+                              <div className="nk-ibox-title">{stack.name}</div>
+                              <div className="nk-ibox-text">Junior Developer</div>
                           </div>
                       </div>
                   </div>
-                  <div className="col-md-6 col-lg-3">
-                      <div className="nk-ibox-1">
-                          <div className="nk-ibox-icon">
-                              <span className="pe-7s-clock"></span>
-                          </div>
-                          <div className="nk-ibox-cont">
-                              <div className="nk-ibox-title">1465</div>
-                              <div className="nk-ibox-text">Working Hours</div>
-                          </div>
-                      </div>
-                  </div>
-                  <div className="col-md-6 col-lg-3">
-                      <div className="nk-ibox-1">
-                          <div className="nk-ibox-icon">
-                              <span className="pe-7s-star"></span>
-                          </div>
-                          <div className="nk-ibox-cont">
-                              <div className="nk-ibox-title">612</div>
-                              <div className="nk-ibox-text">Positive Feedbacks</div>
-                          </div>
-                      </div>
-                  </div>
-                  <div className="col-md-6 col-lg-3">
-                      <div className="nk-ibox-1">
-                          <div className="nk-ibox-icon">
-                              <span className="pe-7s-like"></span>
-                          </div>
-                          <div className="nk-ibox-cont">
-                              <div className="nk-ibox-title">735</div>
-                              <div className="nk-ibox-text">Happy Clients</div>
-                          </div>
-                      </div>
-                  </div>
+                  ))
+                }
+
               </div>
           </div>
           <div className="nk-gap-5 mnt-6"></div>
@@ -136,7 +150,7 @@ const Home = () => {
           <div className="container">
               <div className="row">
                   <div className="col-lg-8 offset-lg-2">
-                      <div className="text-xs-center">Donec orci sem, pretium ac dolor et, faucibus faucibus mauris. Etiam,pellentesque faucibus. Vestibulum gravida volutpat ipsum non ultrices.
+                      <div className="text-xs-center"><b>My Projects Portfolio.</b>
                       </div>
                   </div>
               </div>
@@ -145,150 +159,23 @@ const Home = () => {
           <div className="nk-gap-2 mt-12"></div>
           <div className="container">
           <div className="nk-portfolio-list nk-isotope nk-isotope-3-cols">
-
-
-              <div className="nk-isotope-item" data-filter="Mockup">
+              { projects.map((project, index) => (
+                <div className="nk-isotope-item" data-filter="Mockup" key={index}>
                   <div className="nk-portfolio-item nk-portfolio-item-square nk-portfolio-item-info-style-1">
-                      <Link to="/project-details" className="nk-portfolio-item-link"></Link>
+                      <Link to={`/project-details/${project._id}`} className="nk-portfolio-item-link"></Link>
                       <div className="nk-portfolio-item-image">
                           <div style={{backgroundImage: "url('assets/images/portfolio-7-sm.jpg')"}}></div>
                       </div>
                       <div className="nk-portfolio-item-info nk-portfolio-item-info-center text-xs-center">
                           <div>
-                              <h2 className="portfolio-item-title h3">Vinyl Record</h2>
-                              <div className="portfolio-item-category">Mockup</div>
+                              <h2 className="portfolio-item-title h3">{project.name}</h2>
+                              <div className="portfolio-item-category">{project.category}</div>
                           </div>
                       </div>
                   </div>
               </div>
-
-
-              <div className="nk-isotope-item" data-filter="Print">
-                  <div className="nk-portfolio-item nk-portfolio-item-square nk-portfolio-item-info-style-1">
-                      <Link to="/project-details" className="nk-portfolio-item-link"></Link>
-                      <div className="nk-portfolio-item-image">
-                          <div style={{backgroundImage: "url('assets/images/portfolio-4-sm.jpg')"}}></div>
-                      </div>
-                      <div className="nk-portfolio-item-info nk-portfolio-item-info-center text-xs-center">
-                          <div>
-                              <h2 className="portfolio-item-title h3">Modern T-Shirt</h2>
-                              <div className="portfolio-item-category">Print</div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-
-
-              <div className="nk-isotope-item" data-filter="Branding">
-                  <div className="nk-portfolio-item nk-portfolio-item-square nk-portfolio-item-info-style-1">
-                      <Link to="/project-details" className="nk-portfolio-item-link"></Link>
-                      <div className="nk-portfolio-item-image">
-                          <div style={{backgroundImage: "url('assets/images/portfolio-5-sm.jpg')"}}></div>
-                      </div>
-                      <div className="nk-portfolio-item-info nk-portfolio-item-info-center text-xs-center">
-                          <div>
-                              <h2 className="portfolio-item-title h3">Minimal Bag</h2>
-                              <div className="portfolio-item-category">Branding</div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-
-
-              <div className="nk-isotope-item" data-filter="Design">
-                  <div className="nk-portfolio-item nk-portfolio-item-square nk-portfolio-item-info-style-1">
-                      <Link to="/project-details" className="nk-portfolio-item-link"></Link>
-                      <div className="nk-portfolio-item-image">
-                          <div style={{backgroundImage: "url('assets/images/portfolio-9-sm.jpg')"}}></div>
-                      </div>
-                      <div className="nk-portfolio-item-info nk-portfolio-item-info-center text-xs-center">
-                          <div>
-                              <h2 className="portfolio-item-title h3">Clean &amp; Groovy</h2>
-                              <div className="portfolio-item-category">Design</div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-
-
-              <div className="nk-isotope-item" data-filter="Design">
-                  <div className="nk-portfolio-item nk-portfolio-item-square nk-portfolio-item-info-style-1">
-                      <Link to="/project-details" className="nk-portfolio-item-link"></Link>
-                      <div className="nk-portfolio-item-image">
-                          <div style={{backgroundImage: "url('assets/images/portfolio-3-sm.jpg')"}}></div>
-                      </div>
-                      <div className="nk-portfolio-item-info nk-portfolio-item-info-center text-xs-center">
-                          <div>
-                              <h2 className="portfolio-item-title h3">Minimal Mobile App</h2>
-                              <div className="portfolio-item-category">Design</div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-
-
-              <div className="nk-isotope-item" data-filter="Print">
-                  <div className="nk-portfolio-item nk-portfolio-item-square nk-portfolio-item-info-style-1">
-                      <Link to="/project-details" className="nk-portfolio-item-link"></Link>
-                      <div className="nk-portfolio-item-image">
-                          <div style={{backgroundImage: "url('assets/images/portfolio-8-sm.jpg')"}}></div>
-                      </div>
-                      <div className="nk-portfolio-item-info nk-portfolio-item-info-center text-xs-center">
-                          <div>
-                              <h2 className="portfolio-item-title h3">White T-Shirt</h2>
-                              <div className="portfolio-item-category">Print</div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-
-
-              <div className="nk-isotope-item" data-filter="Branding">
-                  <div className="nk-portfolio-item nk-portfolio-item-square nk-portfolio-item-info-style-1">
-                      <Link to="/project-details" className="nk-portfolio-item-link"></Link>
-                      <div className="nk-portfolio-item-image">
-                          <div style={{backgroundImage: "url('assets/images/portfolio-2-sm.jpg')"}}></div>
-                      </div>
-                      <div className="nk-portfolio-item-info nk-portfolio-item-info-center text-xs-center">
-                          <div>
-                              <h2 className="portfolio-item-title h3">Business Card</h2>
-                              <div className="portfolio-item-category">Branding</div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-
-
-              <div className="nk-isotope-item" data-filter="Photography">
-                  <div className="nk-portfolio-item nk-portfolio-item-square nk-portfolio-item-info-style-1">
-                      <Link to="/project-details" className="nk-portfolio-item-link"></Link>
-                      <div className="nk-portfolio-item-image">
-                          <div style={{backgroundImage: "url('assets/images/portfolio-6-sm.jpg')"}}></div>
-                      </div>
-                      <div className="nk-portfolio-item-info nk-portfolio-item-info-center text-xs-center">
-                          <div>
-                              <h2 className="portfolio-item-title h3">Heja Stockholm</h2>
-                              <div className="portfolio-item-category">Photography</div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-
-
-              <div className="nk-isotope-item" data-filter="Photography">
-                  <div className="nk-portfolio-item nk-portfolio-item-square nk-portfolio-item-info-style-1">
-                      <Link to="/project-details" className="nk-portfolio-item-link"></Link>
-                      <div className="nk-portfolio-item-image">
-                          <div style={{backgroundImage: "url('assets/images/portfolio-12-sm.jpg')"}}></div>
-                      </div>
-                      <div className="nk-portfolio-item-info nk-portfolio-item-info-center text-xs-center">
-                          <div>
-                              <h2 className="portfolio-item-title h3">Paper Bag</h2>
-                              <div className="portfolio-item-category">Photography</div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+            ))
+            }
 
           </div>
           </div>
@@ -303,38 +190,50 @@ const Home = () => {
                   <h2 className="display-4">Contact Info:</h2>
                   <div className="nk-gap mnt-3"></div>
 
-                  <p>Praesent interdum congue mauris, et fringilla lacus pel vitae. Quisque nisl mauris, aliquam eu ultrices vel, conse vitae sapien at imperdiet risus. Quisque cursus risus id. fermentum, in auctor quam consectetur.</p>
+                  <p><b>Send me a message or call.</b></p>
 
                   <ul className="nk-contact-info">
                       <li>
                           <strong>Address:</strong> Ruiru, Kiambu County</li>
                       <li>
-                          <strong>Phone:</strong> +254700000000</li>
+                          <strong>Phone:</strong> +254798356532</li>
                       <li>
-                          <strong>Email:</strong> rachelnamiba@gmail.com</li>
+                          <strong>Email:</strong> namibaracheal@gmail.com</li>
                       <li>
-                          <strong>Linkedin:</strong> <a href="https://github.com/joelrupiah" target="_blank"
+                          <strong>Linkedin:</strong> <a href="#" target="_blank"
                             style={{ textDecoration: 'none', color: 'gray' }}>
                           Rachel Namiba</a></li>
                   </ul>
 
               </div>
               <div className="col-lg-7">
-                  <form action="#" className="nk-form nk-form-ajax">
+                  <form className="nk-form nk-form-ajax" onSubmit={sendMessage}>
                       <div className="row vertical-gap">
                           <div className="col-md-6">
-                              <input type="text" className="form-control required" name="name" placeholder="Full Name" />
+                              <input
+                              onChange={(e) => setName(e.target.value)}
+                              value={name}
+                                type="text" className="form-control required" name="name" placeholder="Full Name" />
                           </div>
                           <div className="col-md-6">
-                              <input type="email" className="form-control required" name="email" placeholder="Email Address" />
+                              <input
+                                onChange={(e) => setEmail(e.target.value)}
+                                value={email}
+                                type="email" className="form-control required" name="email" placeholder="Email Address" />
                           </div>
                       </div>
 
                       <div className="nk-gap-1"></div>
-                      <input type="text" className="form-control required" name="title" placeholder="Subject" />
+                      <input
+                        onChange={(e) => setSubject(e.target.value)}
+                        value={subject}
+                        type="text" className="form-control required" name="title" placeholder="Subject" />
 
                       <div className="nk-gap-1"></div>
-                      <textarea className="form-control required" name="message" rows="8" placeholder="Message" aria-required="true"></textarea>
+                      <textarea
+                        onChange={(e) => setMessage(e.target.value)}
+                        value={message}
+                        className="form-control required" name="message" rows="8" placeholder="Message" aria-required="true"></textarea>
                       <div className="nk-gap-1"></div>
                       <div className="nk-form-response-success"></div>
                       <div className="nk-form-response-error"></div>

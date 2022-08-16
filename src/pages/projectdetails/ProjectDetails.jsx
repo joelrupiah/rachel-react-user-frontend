@@ -1,10 +1,42 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../../../src/components/navbar/NavBar'
 import Footer from '../../../src/components/footer/Footer'
 import './projectdetails.scss'
+import Axios from "axios"
+import { useNavigate, useParams } from 'react-router-dom';
 
-const ProjectDetails = () => {
+const ProjectDetails = (props) => {
+
+  const initialState = {
+    name: "",
+    description: "",
+    client: "",
+    link: "",
+    category: "",
+  };
+
+  const { id } = useParams()
+  // const navigate = useNavigate()
+
+  const [project, setProject] = useState(initialState)
+
+
+  const getProject = () => {
+    Axios.get(`/projects/get-project/${id}`)
+      .then(res => {
+        setProject(res.data.data.project)
+      })
+  }
+
+  function handleChange(e) {
+    setProject({ ...project, [e.target.name]: e.target.value });
+  }
+
+  useEffect(() => {
+    getProject()
+  }, [props])
+
     return (
       <>
       <div className="nk-main">
@@ -21,13 +53,12 @@ const ProjectDetails = () => {
       <div className="nk-portfolio-single">
 
           <div className="nk-gap-4 mb-14"></div>
-          <h1 className="nk-portfolio-title display-4">Video Project</h1>
+          <h1 className="nk-portfolio-title display-4">{project.name}</h1>
           <div className="row vertical-gap">
               <div className="col-lg-8">
                   <div className="nk-portfolio-info">
                       <div className="nk-portfolio-text">
-                          <p>Nullam lobortis neque turpis, nec tempus sem pharetra at. Donec et quam, ullamcorper velit. Aliquam maximus ullamcorper ligula, at placerat dui hendrerit sed. Sed metus urna, bibendum id tortor, feugiat ipsum. Aliquam vehicula neque sit amet dolor malesuada pretium.</p>
-                          <p>Curabitur tristique, felis ut mattis auctor, elit ante laoreet libero, ac lorem quam vitae libero. Suspen disse aliquet eget risus quis vehicula.</p>
+                          <p>{project.description}</p>
                       </div>
                   </div>
               </div>
@@ -50,7 +81,7 @@ const ProjectDetails = () => {
                               <strong>Link:</strong>
                           </td>
                           <td>
-                              <a href="#" title="Live preview" data-share="facebook">www.google.com</a>
+                              <a href={project.link} title="Code preview" target="_blank">Github Link</a>
                           </td>
                       </tr>
                   </table>
@@ -61,7 +92,7 @@ const ProjectDetails = () => {
       </div>
   </div>
 
-  <img className="nk-img-fit" src="assets/images/portfolio-4-video-thumb.jpg"/>
+  // <img className="nk-img-fit" src="assets/images/portfolio-4-video-thumb.jpg"/>
 
     <div className="nk-pagination nk-pagination-center">
         <div className="container">
