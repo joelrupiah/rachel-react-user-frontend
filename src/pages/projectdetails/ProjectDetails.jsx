@@ -33,7 +33,7 @@ const ProjectDetails = (props) => {
         })
     }
     getProject()
-  }, [props])
+  }, [id])
 
     return (
       <>
