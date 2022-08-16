@@ -27,7 +27,7 @@ const NavBar = () => {
 
               <ul className="nk-nav nk-nav-right nk-nav-icons">
                   <li className="single-icon hidden-lg-up">
-                      <a href="#" className="nk-navbar-full-toggle">
+                      <a href="!#" className="nk-navbar-full-toggle">
                           <span className="nk-icon-burger">
                               <span className="nk-t-1"></span>
                               <span className="nk-t-2"></span>

@@ -7,7 +7,7 @@ import Axios from 'axios'
 const Home = () => {
 
   const [stacks, setStacks] = useState([])
-  const [profiles, setProfiles] = useState([])
+  // const [profiles, setProfiles] = useState([])
   const [projects, setProjects] = useState([])
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -28,12 +28,12 @@ const Home = () => {
         setStacks(res.data.data.getStacks)
       })
   }
-  const getAllProfiles = () => {
-    Axios.get("/profiles/get-profiles")
-      .then(res => {
-        setProfiles(res.data.data.getProfiles)
-      })
-  }
+  // const getAllProfiles = () => {
+  //   Axios.get("/profiles/get-profiles")
+  //     .then(res => {
+  //       setProfiles(res.data.data.getProfiles)
+  //     })
+  // }
   const getAllProjects = () => {
     Axios.get("/projects/get-projects")
       .then(res => {
@@ -44,7 +44,7 @@ const Home = () => {
   // const get
 
   useEffect(() => {
-    getAllProfiles()
+    // getAllProfiles()
     getAllProjects()
     getAllStacks()
   }, [])
@@ -200,7 +200,7 @@ const Home = () => {
                       <li>
                           <strong>Email:</strong> namibaracheal@gmail.com</li>
                       <li>
-                          <strong>Linkedin:</strong> <a href="#" target="_blank"
+                          <strong>Linkedin:</strong> <a href="!#" target="_blank"
                             style={{ textDecoration: 'none', color: 'gray' }}>
                           Rachel Namiba</a></li>
                   </ul>

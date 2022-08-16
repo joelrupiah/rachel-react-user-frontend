@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Navbar from '../../../src/components/navbar/NavBar'
+// import Navbar from '../../../src/components/navbar/NavBar'
 import Footer from '../../../src/components/footer/Footer'
 import './projectdetails.scss'
 import Axios from "axios"
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const ProjectDetails = (props) => {
 
@@ -21,19 +21,17 @@ const ProjectDetails = (props) => {
 
   const [project, setProject] = useState(initialState)
 
-
-  const getProject = () => {
-    Axios.get(`/projects/get-project/${id}`)
-      .then(res => {
-        setProject(res.data.data.project)
-      })
-  }
-
-  function handleChange(e) {
-    setProject({ ...project, [e.target.name]: e.target.value });
-  }
+  // function handleChange(e) {
+  //   setProject({ ...project, [e.target.name]: e.target.value });
+  // }
 
   useEffect(() => {
+    const getProject = () => {
+      Axios.get(`/projects/get-project/${id}`)
+        .then(res => {
+          setProject(res.data.data.project)
+        })
+    }
     getProject()
   }, [props])
 
@@ -81,7 +79,7 @@ const ProjectDetails = (props) => {
                               <strong>Link:</strong>
                           </td>
                           <td>
-                              <a href={project.link} title="Code preview" target="_blank">Github Link</a>
+                              <a href={project.link} title="Code preview" rel="noopener noreferrer" target="_blank">Github Link</a>
                           </td>
                       </tr>
                   </table>
@@ -92,13 +90,13 @@ const ProjectDetails = (props) => {
       </div>
   </div>
 
-  // <img className="nk-img-fit" src="assets/images/portfolio-4-video-thumb.jpg"/>
+  {/*<img className="nk-img-fit" src="assets/images/portfolio-4-video-thumb.jpg"/>*/}
 
     <div className="nk-pagination nk-pagination-center">
         <div className="container">
-            <a className="nk-pagination-prev" href="#">
+            <a className="nk-pagination-prev" href="!#">
                 <span className="pe-7s-angle-left"></span> Previous Work</a>
-            <a className="nk-pagination-next" href="#">Next Work <span className="pe-7s-angle-right"></span> </a>
+            <a className="nk-pagination-next" href="!#">Next Work <span className="pe-7s-angle-right"></span> </a>
         </div>
     </div>
 
