@@ -100,13 +100,7 @@ const Home = () => {
                       <div className="nk-gap mnt-5"></div>
 
                       <p>
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                      when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-                      It has survived not only five centuries, but also the leap into electronic typesetting,
-                      remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-                      containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker
-                      including versions of Lorem Ipsum.
+                      Cuz change hii hapa manually kkwa code kwa Home page ya user frontendd uandikke about you.
                       </p>
 
                       <div className="nk-gap-4 mt-25"></div>
@@ -164,7 +158,7 @@ const Home = () => {
                   <div className="nk-portfolio-item nk-portfolio-item-square nk-portfolio-item-info-style-1">
                       <Link to={`/project-details/${project._id}`} className="nk-portfolio-item-link"></Link>
                       <div className="nk-portfolio-item-image">
-                          <div style={{backgroundImage: "url('assets/images/portfolio-7-sm.jpg')"}}></div>
+                          <div style={{backgroundImage: "url('https://images.unsplash.com/photo-1537432376769-00f5c2f4c8d2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8cHJvZ3JhbW1pbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60')"}}></div>
                       </div>
                       <div className="nk-portfolio-item-info nk-portfolio-item-info-center text-xs-center">
                           <div>
